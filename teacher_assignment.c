@@ -53,7 +53,7 @@ else
 	printf("\n\tError please try again.. with different choices.\n");
 }
 }
-printf("\n\t----Done---\n");
+printf("\n\tDone\n");
 }
 
 
