@@ -20,7 +20,7 @@ int main()
 			type[i]=1;
 		}
 		else
-		{
+		{ 
 			type[i]=0;
 		}
 	}
