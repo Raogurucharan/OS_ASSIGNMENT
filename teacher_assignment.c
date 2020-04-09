@@ -7,7 +7,7 @@ This cycle continues. Write a programme to synchronize the teacher and the stude
 #include<stdlib.h>
 #include<pthread.h>
 #include<stdbool.h>
-int student[3][4]={0};
+int student[3][4]={0};    //creating a 2d array
 void *teacher();
 void *student1();
 void *student2();
