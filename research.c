@@ -13,7 +13,7 @@ int main()
 	printf("Enter the data \n");
 	for(i=0;i<b;i++)
 	{
-		printf("Response time of P%d (ms))= ",i);
+		printf("Response time of P%d (ms)= ",i);
 		scanf("%d",&resptime[i]);
 		if(resptime[i]<1000)
 		{
@@ -30,11 +30,11 @@ int main()
 		printf("\nP%d\t\t%dms\t\t",i,resptime[i]);
 		if(type[i]==1)
 		{
-			printf("Interactive\tHigh");
+			printf("INTERACTIVE \tHigh");
 		}
 		else
 		{
-			printf("Non-Interactive\tLow");
+			printf("NON-INTERACTIVE \tLow");
 		}
 	}
 }
