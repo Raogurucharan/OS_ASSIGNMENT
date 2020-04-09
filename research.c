@@ -10,7 +10,7 @@ int main()
 	int resptime[20];
 	printf("Number of process: ");
 	scanf("%d",&n);
-	printf("Enter the data\n");
+	printf("Enter the data \n");
 	for(i=0;i<n;i++)
 	{
 		printf("Response time of P%d (in milliseconds): ",i);
