@@ -4,51 +4,90 @@ The teacher places two things on a shared table and the student having the third
 The teacher then places another two things out of the three and again the student having the third thing makes the assignment and tells the teacher on completion.
 This cycle continues. Write a programme to synchronize the teacher and the students.*/
 #include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
 #include<stdbool.h>
-struct requirement
-{
- 	bool pen ;
-	bool paper ;
-	bool question_paper ;
-	bool all_three ;
-};
+int student[3][4]={0};
+void *teacher();
+void *student1();
+void *student2();
+void *student3();
+pthread_mutex_t lck;
+int ch1,ch2;
+int r1,r2;
+
 int main()
+{	
+printf("\t\t\t---Welcome---\n");
+	pthread_mutex_init(&lck,NULL);\
+student[1][1]=1;
+	student[2][2]=2;student[3][3]=1;
+	pthread_t t_thread;
+	pthread_t s_thread;
+printf("Resources Menu: \n\t\tPress '1' for pen\n\t\tPress '2' for paper \n\t\tPress '3' for   question_paper \n"); 	
+	while(1)
 {
-	int n=3;
-	struct requirement  s[n];
-	s[0].pen=true;		
-	s[0].paper = false;
-	s[0].question_paper = false;
-	s[0].all_three= false;
-	s[1].pen=false;		
-	s[1].paper = true;
-	s[1].question_paper = false;
-	s[1].all_three = false;
-	s[2].pen=false;		
-	s[2].paper = false;
-	s[2].question_paper = true;
-	s[2].all_three = false	;
-	while(s[0].all_three==false||s[1].all_three==false||s[2].all_three==false)
-	{
-		int ch1,ch2;
-		printf("\nResources:\n1.pen\n2.paper\n3.question paper\n Enter the two things which is to be placed on the shared table: ");
-		scanf("%d%d",&ch1,&ch2);
-		if(ch1==1 && ch2==2 && s[2].all_three==false)
-		{
-			s[2].all_three=true ;
-			printf("Third Student has completed the task\n");
-		}
-		if(ch1==2 && ch2==3 && s[0].all_three==false)
-		{
-			s[0].all_three=true;
-			printf("First Student has completed the task\n");
-		}
-		if(ch1==1 && ch2==3 && s[1].all_three==false)
-		{
-			s[1].all_three=true;
-			printf("Second Student has completed the task\n");
-		}
-	}
-	printf("All the students now have completed their respective tasks succesfully\n");
-	return 0;
+if(student[1][4]==1 && student[2][4]==1 && student[3][4]==1){break;}
+pthread_create(&t_thread, NULL, teacher, NULL);
+pthread_join(t_thread,NULL);
+	    
+if((ch1==1 && ch2==2 || ch2==1 && ch1==2 ) && student[3][4]==0)
+{
+	pthread_create(&s_thread, NULL, student3, NULL);
+	pthread_join(s_thread,NULL);
+}
+else if((ch1==1 && ch2==3 || ch2==1 && ch1==3 ) && student[2][4]==0)
+{
+pthread_create(&s_thread, NULL, student2, NULL);
+	pthread_join(s_thread,NULL);
+}
+else if((ch1==2 && ch2==3 || ch2==2 && ch1==3 ) && student[1][4]==0)
+{
+	pthread_create(&s_thread, NULL, student1, NULL);
+pthread_join(s_thread,NULL);
+}
+else
+{
+	printf("\n\tError (007): try again.. with different choices.\n");
+}
+}
+printf("\n\t----Done---\n");
+}
+
+
+void *teacher()
+{
+pthread_mutex_lock(&lck);
+	printf("\nFirst Resource on shared tabel:-\t");
+	scanf("%d",&ch1);
+	printf("Second Resource on shared tabel:-\t");
+	scanf("%d",&ch2);
+	pthread_mutex_unlock(&lck);
+}
+
+void *student2()
+{	
+	pthread_mutex_lock(&lck);
+	printf("\nChoices Made = 'pen', 'question_paper'\n");
+	student[2][4]=1;
+	printf("\n\tStudent 2 has Completed the assignment. \n");
+	pthread_mutex_unlock(&lck);
+}
+
+void *student3()
+{	
+	pthread_mutex_lock(&lck);
+	printf("\nChoices Made = 'pen', 'paper'\n");
+	student[3][4]=1;
+	printf("\n\tStudent 3 has Completed the assignment.\n");
+	pthread_mutex_unlock(&lck);
+}
+
+void *student1()
+{	
+	pthread_mutex_lock(&lck);
+	printf("\nChoices Made = 'paper', 'question_paper'\n");
+	student[1][4]=1;
+	printf("\n\tStudent 1 has Completed the assignment.\n");	
+	pthread_mutex_unlock(&lck);
 }
