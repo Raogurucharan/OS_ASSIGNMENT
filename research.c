@@ -15,7 +15,7 @@ int main()
 	{
 		printf("Response time of P%d (ms)= ",i);
 		scanf("%d",&resptime[i]);
-		if(resptime[i]<1000)
+		if(resptime[i]<1000)        //condition for interacive or non interactive
 		{
 			type[i]=1;
 		}
