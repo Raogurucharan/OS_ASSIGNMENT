@@ -11,7 +11,7 @@ This cycle continues. Write a programme to synchronize the teacher and the stude
 #include<stdbool.h>
 int student[3][4]={0};    //creating a 2d array
 void *teacher();
-void *student1();         //3 student processes in three different functions 
+void *student1();         //3 student processes  in three different functions 
 void *student2();
 void *student3();
 pthread_mutex_t lck;
