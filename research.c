@@ -8,12 +8,12 @@ int main()
 {
 	int b, type[20],i;
 	int resptime[20];
-	printf("Number of process: ");
+	printf(" The Number of process= ");
 	scanf("%d",&b);
 	printf("Enter the data \n");
 	for(i=0;i<b;i++)
 	{
-		printf("Response time of P%d (in milliseconds): ",i);
+		printf("Response time of P%d (ms))= ",i);
 		scanf("%d",&resptime[i]);
 		if(resptime[i]<1000)
 		{
